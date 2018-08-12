@@ -28,8 +28,8 @@ import io.micrometer.core.instrument.util.StringEscapeUtils;
 /**
  * Representation of a metric.
  *
- * @author Sean Scanlon <sean.scanlon@gmail.com>
- * @author Adam Lugowski <adam.lugowski@turn.com>
+ * @author Sean Scanlon &lt;sean.scanlon@gmail.com&gt;
+ * @author Adam Lugowski &lt;adam.lugowski@turn.com&gt;
  *
  */
 public class OpenTsdbMetric {

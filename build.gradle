@@ -17,16 +17,24 @@ buildscript {
 
 apply plugin: 'java-library'
 apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'maven-publish'
 
-allprojects {
-    group = 'com.github.sett4'
-    version = '1.0.0'
-}
+group = 'com.github.sett4'
+version = '1.0.0'
 
 ext {
     micrometerVersion = '1.0.+'
 }
 
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    classifier = 'sources'
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
 
 dependencies {
     api 'org.slf4j:slf4j-api:1.7.+'
@@ -43,4 +51,48 @@ dependencies {
 repositories {
     mavenCentral()
     jcenter()
+    mavenLocal()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'micrometer-registry-opentsdb'
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                name = 'Micrometer Registry OpenTSDB'
+                description = 'Micrometer Registry which send to OpenTSDB'
+                url = 'https://github.com/sett4/micrometer-registry-opentsdb'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'sett4'
+                        name = 'Setsu FUJITA'
+                        email = 'fjt.seth@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:https://github.com/sett4/micrometer-registry-opentsdb.git'
+                    developerConnection = 'scm:https://github.com/sett4/micrometer-registry-opentsdb.git'
+                    url = 'https://github.com/sett4/micrometer-registry-opentsdb'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            // change to point to your repo, e.g. http://my.org/repo
+            url = "file:${System.getProperty('user.home')}/.m2/repository"
+
+        }
+    }
+
 }
