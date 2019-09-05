@@ -105,9 +105,9 @@ public class OpenTsdbMetric {
         openTsdbJson.append("\"timestamp\":").append(getTimestamp()).append(",");
 
         String s = getValue().toString();
-        if ("Infinite".equals(s)) {
+        if ("Infinity".equals(s)) {
             s = "1E400";
-        } else if ("-Infinite".equals(s)) {
+        } else if ("-Infinity".equals(s)) {
             s = "-1E400";
         }
 
