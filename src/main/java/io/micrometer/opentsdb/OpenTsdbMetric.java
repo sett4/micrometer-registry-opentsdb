@@ -106,9 +106,9 @@ public class OpenTsdbMetric {
 
         String s = getValue().toString();
         if ("Infinity".equals(s)) {
-            s = "1E400";
+            s = String.valueOf(Double.MAX_VALUE).toLowerCase();
         } else if ("-Infinity".equals(s)) {
-            s = "-1E400";
+            s = String.valueOf(Double.MIN_VALUE).toLowerCase();
         }
 
         openTsdbJson.append("\"value\":")
