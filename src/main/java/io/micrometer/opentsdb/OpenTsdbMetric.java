@@ -99,11 +99,21 @@ public class OpenTsdbMetric {
 
         openTsdbJson.append("{");
 
-        openTsdbJson.append("\"metric\":\"").append(StringEscapeUtils.escapeJson(namingConvention.name(getMetric(), Meter.Type.OTHER))).append(
-            "\",");
+        openTsdbJson.append("\"metric\":\"")
+                .append(StringEscapeUtils.escapeJson(namingConvention.name(getMetric(), Meter.Type.OTHER)))
+                .append("\",");
         openTsdbJson.append("\"timestamp\":").append(getTimestamp()).append(",");
-        openTsdbJson.append("\"value\":").append(StringEscapeUtils.escapeJson(getValue().toString()))
-                    .append(",");
+
+        String s = getValue().toString();
+        if ("Infinite".equals(s)) {
+            s = "1E400";
+        } else if ("-Infinite".equals(s)) {
+            s = "-1E400";
+        }
+
+        openTsdbJson.append("\"value\":")
+                .append(StringEscapeUtils.escapeJson(s))
+                .append(",");
 
         openTsdbJson.append("\"tags\":{");
 
